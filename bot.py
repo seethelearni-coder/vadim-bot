@@ -5,7 +5,7 @@ from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
 logging.basicConfig(level=logging.INFO)
 TOKEN = os.environ.get("BOT_TOKEN")
-FILE_PATH = "Автопрогрев_через_РСЯ_Вадим_Альшин.xmind"
+FILE_PATH = "Автопрогрев через РСЯ. Вадим Альшин.xmind"
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
@@ -18,11 +18,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     with open(FILE_PATH, "rb") as f:
         await update.message.reply_document(
             document=f,
-            filename="Система_заявок_Вадим_Альшин.xmind",
+            filename="Система заявок Вадим Альшин.xmind",
             caption="7-шаговая система стабильных заявок для экспертов 🔥"
         )
 
-app = ApplicationBuilder().token(TOKEN).build()
-app.add_handler(CommandHandler("start", start))
-print("Бот запущен...")
-app.run_polling()
+app
