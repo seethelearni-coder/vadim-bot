@@ -1,11 +1,25 @@
 import logging
 import os
+import threading
+from http.server import HTTPServer, BaseHTTPRequestHandler
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
 logging.basicConfig(level=logging.INFO)
 TOKEN = os.environ.get("BOT_TOKEN")
 FILE_PATH = "Автопрогрев через РСЯ. Вадим Альшин.xmind"
+
+class Handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"Bot is running")
+    def log_message(self, format, *args):
+        pass
+
+def run_server():
+    server = HTTPServer(("0.0.0.0", 8080), Handler)
+    server.serve_forever()
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
@@ -22,6 +36,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             caption="Чтобы открыть файл правильно:\nСкачай Xmind на телефон или компьютер, открой файл с помощью данной программы.\n\nЕсли тебе лень даже на данном этапе, тебе не нужны клиенты и деньги)"
         )
 
+threading.Thread(target=run_server, daemon=True).start()
 app = ApplicationBuilder().token(TOKEN).build()
 app.add_handler(CommandHandler("start", start))
 print("Бот запущен...")
