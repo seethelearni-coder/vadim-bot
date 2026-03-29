@@ -22,4 +22,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             caption="7-шаговая система стабильных заявок для экспертов 🔥"
         )
 
-app
+app = ApplicationBuilder().token(TOKEN).build()
+app.add_handler(CommandHandler("start", start))
+print("Бот запущен...")
+app.run_polling()
