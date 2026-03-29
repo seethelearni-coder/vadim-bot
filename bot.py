@@ -11,7 +11,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     await update.message.reply_text(
         f"Привет, {user.first_name} 👋\n\n"
-        "Держи майнд-карту — 7-шаговая система стабильных заявок.\n\n"
+        "Держи майнд-карту\n\n"
         "Приятного изучения и если захочешь разобрать как это работает именно в твоей нише — "
         "пиши: @vadimarket"
     )
