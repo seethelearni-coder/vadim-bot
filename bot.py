@@ -1,4 +1,3 @@
-import asyncio
 import logging
 import os
 from telegram import Update
@@ -12,8 +11,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     await update.message.reply_text(
         f"Привет, {user.first_name} 👋\n\n"
-        "Держи майнд-карту — 7-шаговая система стабильных заявок для экспертов.\n\n"
-        "Приятного изучения, если будут вопросы, смело пиши мне @vadimarket"
+        "Держи майнд-карту — 7-шаговая система стабильных заявок.\n\n"
+        "Приятного изучения и если захочешь разобрать как это работает именно в твоей нише — "
+        "пиши: @vadimarket"
     )
     with open(FILE_PATH, "rb") as f:
         await update.message.reply_document(
@@ -22,15 +22,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             caption="7-шаговая система стабильных заявок для экспертов 🔥"
         )
 
-async def main():
-    app = ApplicationBuilder().token(TOKEN).build()
-    app.add_handler(CommandHandler("start", start))
-    print("Бот запущен...")
-    await app.run_polling()
-
-if __name__ == "__main__":
-    asyncio.run(main())
-    app = ApplicationBuilder().token(TOKEN).build()
-    app.add_handler(CommandHandler("start", start))
-    print("Бот запущен...")
-    app.run_polling()
+app = ApplicationBuilder().token(TOKEN).build()
+app.add_handler(CommandHandler("start", start))
+print("Бот запущен...")
+app.run_polling()
